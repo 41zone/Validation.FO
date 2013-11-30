@@ -18,6 +18,16 @@ IValidateConfig config = new BasicValidateConfig();
 
 IValidateService service = new BasicValidateService(config);
 
+### 构建Bean类User
+public class User {
+	private String username;
+	private String password;
+	private String passwordSecond;
+	private String email;
+	private Timestamp starttime;
+	private Timestmap endtime;
+}
+}
 
 ## 配合Spring使用
 
