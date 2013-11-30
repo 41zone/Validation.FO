@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fozone-validation>
+	<group name="group.sample">
+		<field name="username">
+			<rule name="required" message="用户名必须要填写！"/>
+		</field>
+	</group>
+	
+	<include file="user.fo.xml"/>
+</fozone-validation>
