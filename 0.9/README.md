@@ -359,6 +359,7 @@
 	
 **user.fo.xml**
 
+链接 [user.fo.xml](https://github.com/41zone/validation/blob/master/0.9/demo/src/user.fo.xml)
 
 
 ## 配合Spring使用
