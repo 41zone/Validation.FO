@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fozone-validators>
+	<validator name="required" class="cc.fozone.validation.validators.RequiredValidator"/>
+	<validator name="match" class="cc.fozone.validation.validators.MatchValidator"/>
+	<validator name="between" class="cc.fozone.validation.validators.BetweenValidator"/>
+	<validator name="min" class="cc.fozone.validation.validators.MinValidator"/>
+	<validator name="max" class="cc.fozone.validation.validators.MaxValidator"/>
+	<validator name="equals" class="cc.fozone.validation.validators.EqualsValidator"/>
+	<validator name="timestampLessEqual" class="cc.fozone.validation.validators.TimestampLessEqualValidator"/>
+	<validator name="timestampCreaterEqual" class="cc.fozone.validation.validators.TimestampCreaterEqualValidator"/>
+	<validator name="spring" class="cc.fozone.validation.validators.SpringValidator" spring="springValidator"/>
+</fozone-validators>
