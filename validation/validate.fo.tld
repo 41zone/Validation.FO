@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+	<description>
+		<![CDATA[
+			author:Jimmy Song
+			mail:jimmy.song@aliyun.com
+		]]>
+   	</description>
+	<display-name>"Struts Tags - 41Zone Validate"</display-name>
+	<tlib-version>1.0.0</tlib-version>
+	<short-name>fo</short-name>
+	<uri>/validate.fo.tld</uri>
+	<tag>
+		<description><![CDATA[Show error validated]]></description>
+		<name>error</name>
+		<tag-class>cc.fozone.validation.tags.struts2.ValidateErrorTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>false</dynamic-attributes>
+	</tag>
+</taglib>
