@@ -1,6 +1,6 @@
 # Validation API for 0.9 version
 
-### 框架说明
+## 框架说明
 1. 这是一个验证框架，并且是一个独立的验证框架，不依赖与其他已有的框架； 
 2. 可以自由的嵌入到其他框架，比如Spring、Struts等流行框架，但实质来说他是独立的，所以无所谓嵌入到哪里，如果需要在GUI桌面应用中，也是完美的；
 3. 配置简单，可自由扩展验证器，实际只要实现`IValidator`接口，以及在`rules.fo.xml`中添加相关的配置即可；
@@ -8,8 +8,14 @@
 5. 添加了一个对`Spring`特殊的验证扩展；
 6. 在使用时，会高兴的发现这的确给自己扩展验证提供了很好的支持，因为这个很简单。
 
-### 快速使用
+## 快速使用
+### 实例化验证服务层
+//实例化配置
+IValidateConfig config = new BasicValidateConfig();
+//实例化服务
+IValidateService service = new BasicValidateService(config);
 
-### 配合Spring使用
 
-### 使用Struts2标签
+## 配合Spring使用
+
+## 使用Struts2标签
