@@ -11,8 +11,11 @@
 ## 快速使用
 ### 实例化验证服务层
 //实例化配置
+
 IValidateConfig config = new BasicValidateConfig();
+
 //实例化服务
+
 IValidateService service = new BasicValidateService(config);
 
 
