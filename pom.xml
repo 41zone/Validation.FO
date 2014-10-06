@@ -9,6 +9,13 @@
 
 	<name>Validation.FO</name>
 	<url>http://maven.apache.org</url>
+	<description>Validation Framework for Java Development</description>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>http://mit-license.org/</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
