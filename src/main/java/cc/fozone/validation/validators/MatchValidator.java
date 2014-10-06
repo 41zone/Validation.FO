@@ -2,6 +2,8 @@ package cc.fozone.validation.validators;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 import cc.fozone.validation.IValidator;
 import cc.fozone.validation.config.pojo.Rule;
 
@@ -17,7 +19,7 @@ public class MatchValidator implements IValidator {
 		// TODO Auto-generated method stub
 		if(value == null) return false;
 		String regex = rule.getParameter("regex");
-		if(regex == null || regex.trim().length() <= 0) return true;
+		if(StringUtils.isBlank(regex)) return true;
 		return Pattern.matches(regex, (String)value);
 	}
 }

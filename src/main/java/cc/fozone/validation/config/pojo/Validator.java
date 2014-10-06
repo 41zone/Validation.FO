@@ -3,7 +3,8 @@ package cc.fozone.validation.config.pojo;
 public class Validator {
 	private String name;
 	private String className;
-	private String springName;
+	private boolean useSpring;
+	private String beanId;
 	public String getName() {
 		return name;
 	}
@@ -16,11 +17,17 @@ public class Validator {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public String getSpringName() {
-		return springName;
+	public String getBeanId() {
+		return beanId;
 	}
-	public void setSpringName(String springName) {
-		this.springName = springName;
+	public void setBeanId(String beanId) {
+		this.beanId = beanId;
+	}
+	public boolean getUseSpring() {
+		return useSpring;
+	}
+	public void setUseSpring(boolean useSpring) {
+		this.useSpring = useSpring;
 	}
 	
 }

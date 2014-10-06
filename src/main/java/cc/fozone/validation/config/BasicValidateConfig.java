@@ -176,11 +176,14 @@ public class BasicValidateConfig implements IValidateConfig {
 				Element validatorE = vl.next();
 				String vname = validatorE.attributeValue("name").trim();
 				String vclass = validatorE.attributeValue("class").trim();
-				String vspring = validatorE.attributeValue("spring");
+				String vbeanId = validatorE.attributeValue("beanId");
+				String useSpring = validatorE.attributeValue("useSpring");
+				boolean vuseSpring = Boolean.parseBoolean(useSpring);
 				Validator v = new Validator();
 				v.setName(vname);
 				v.setClassName(vclass);
-				v.setSpringName(vspring);
+				v.setBeanId(vbeanId);
+				v.setUseSpring(vuseSpring);
 				try {
 					IValidator validator = this.instanceValidator(v);
 					validators.put(vname, validator);

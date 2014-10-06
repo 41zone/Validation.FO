@@ -8,5 +8,5 @@
 	<validator name="equals" class="cc.fozone.validation.validators.EqualsValidator"/>
 	<validator name="timestampLessEqual" class="cc.fozone.validation.validators.TimestampLessEqualValidator"/>
 	<validator name="timestampCreaterEqual" class="cc.fozone.validation.validators.TimestampCreaterEqualValidator"/>
-	<validator name="spring" class="cc.fozone.validation.validators.SpringValidator" spring="springValidator"/>
+	<validator name="spring"  useSpring="true" class="cc.fozone.validation.validators.SpringValidator"/>
 </fozone-validators>

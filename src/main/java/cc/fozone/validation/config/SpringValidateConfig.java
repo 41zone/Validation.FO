@@ -20,11 +20,21 @@ public class SpringValidateConfig extends BasicValidateConfig implements Applica
 			throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException {
 		// TODO Auto-generated method stub
-		String springName = v.getSpringName();
 		String className = v.getClassName();
-		if(StringUtils.isBlank(springName)) return super.instanceValidator(v);
-		Class clazz = Class.forName(className);
-		IValidator validator = (IValidator) this.getApplicationContext().getBean(springName,clazz);
+		String beanId = v.getBeanId();
+		boolean useSpring = v.getUseSpring();
+		
+		if(!useSpring) return super.instanceValidator(v);
+		
+		Class clazz = null;
+		IValidator validator = null;
+		
+		if(StringUtils.isBlank(beanId)) {
+			clazz = Class.forName(className);
+			validator = (IValidator)this.getApplicationContext().getBean(clazz);
+		} else {
+			validator = (IValidator) this.getApplicationContext().getBean(beanId);
+		}
 		return validator;
 	}
 	private ApplicationContext applicationContext;
