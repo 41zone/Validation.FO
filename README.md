@@ -38,7 +38,7 @@
 2. 实例化 `IValidateService` 对象
 3. 调用 `IValidateService.validate` 方法
 
-### 第一个DEMO，BasicValidateService
+### 基本的使用方法
 
 源代码地址：[Basic Usage](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/basic)
 
@@ -260,6 +260,8 @@ public class SpringTest {
 </group>
 ```
 
+***
+
 #### `match` - 正则匹配
 
 消息message： **必填**
@@ -281,6 +283,8 @@ public class SpringTest {
 	</field>
 </group>
 ```
+
+***
 
 #### `between` - 判断字符串或数组非空长度是否介于两者之间，min <= length <= max
 
@@ -306,6 +310,8 @@ public class SpringTest {
 </group>
 ```
 
+***
+
 #### `min` - 判断字符串或数组非空长度是否大于等于最小长度，length >= min
 
 消息message: **必填**
@@ -328,6 +334,8 @@ public class SpringTest {
 </group>
 ```
 
+***
+
 #### `max` - 判断字符串或数组非空长度是否小于等于最大长度，length <= max
 
 消息message: **必填**
@@ -349,6 +357,8 @@ public class SpringTest {
 	</field>
 </group>
 ```
+
+***
 
 #### `equals` - 判断字段是否与指定的字段值是否相同
 
@@ -384,6 +394,8 @@ public class User {
 > 注：这里会将`password`与目标`passwordOne`字段的值进行`equals`比较
 > 有些时候你可能需要重写`equals`方法
 
+***
+
 #### `timestampLessEqual` - 时间戳是否小于等于指定的目标时间字段
 
 消息message: **必填**
@@ -415,9 +427,12 @@ public class User {
 </group>
 ```
 
-> 注：
-> 1. 这里会将`starttime`与目标`endtime`字段的值进行大小比较
-> 2. 这里的字段必须是`java.sql.Timestamp`类型
+**注：**
+
+1. 这里会将`starttime`与目标`endtime`字段的值进行大小比较
+2. 这里的字段必须是`java.sql.Timestamp`类型
+
+***
 
 #### `timestampCreaterEqual` - 时间戳是否大于等于指定的目标时间字段
 
@@ -450,6 +465,7 @@ public class User {
 </group>
 ```
 
-> 注：
-> 1. 这里会将`endtime`与目标`starttime`字段的值进行大小比较
-> 2. 这里的字段必须是`java.sql.Timestamp`类型
+**注：**
+
+1. 这里会将`endtime`与目标`starttime`字段的值进行大小比较
+2. 这里的字段必须是`java.sql.Timestamp`类型
