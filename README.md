@@ -237,3 +237,217 @@ public class SpringTest {
 验证失败，结果如下
 {email=邮件格式不正确, password=两次密码输入不正确, starttime=开始时间不能大于结束时间, endtime=结束时间不能小于开始时间}
 ```
+
+## Validator验证器与规则
+
+系统默认的验证器文件 `validators.fo.xml`
+
+### 默认验证规则
+
+#### `required` - 必填字段
+
+消息message： **必填**
+
+参数param： 无
+
+案例：
+
+```Xml
+<group name="user.validate">
+	<field name="username">
+		<rule name="required" message="姓名必须填写。"/>
+	</field>
+</group>
+```
+
+#### `match` - 正则匹配
+
+消息message： **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|regex|Yes|正则表达式，如果为空，验证直接返回true|
+
+案例：
+
+```Xml
+<group name="user.validate">
+	<field name="email">
+		<rule name="match" message="邮件格式不正确">
+			<param name="regex" value="^[A-Za-z]+[\.\-_A-Za-z0-9]*@[A-Za-z0-9]+[\.\-_A-Za-z0-9]*$"/>
+		</rule>
+	</field>
+</group>
+```
+
+#### `between` - 判断字符串或数组非空长度是否介于两者之间，min <= length <= max
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|min|Yes|最小长度(包含)|
+|max|Yes|最大长度(包含)|
+
+案例：
+
+```Xml
+<group name="user.validate">
+	<field name="email">
+		<rule name="between" message="邮件长度应该3-100之间">
+			<param name="min" value="3"/>
+			<param name="max" value="100"/>
+		</rule>
+	</field>
+</group>
+```
+
+#### `min` - 判断字符串或数组非空长度是否大于等于最小长度，length >= min
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|value|Yes|最小长度(包含)|
+
+案例：
+
+```Xml
+<group name="user.validate">
+	<field name="password">
+		<rule name="min" message="密码至少5个字符">
+			<param name="value" value="5"/>
+		</rule>
+	</field>
+</group>
+```
+
+#### `max` - 判断字符串或数组非空长度是否小于等于最大长度，length <= max
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|value|Yes|最大长度(包含)|
+
+案例：
+
+```Xml
+<group name="user.validate">
+	<field name="password">
+		<rule name="max" message="密码最多20个字符">
+			<param name="value" value="20"/>
+		</rule>
+	</field>
+</group>
+```
+
+#### `equals` - 判断字段是否与指定的字段值是否相同
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|target|Yes|指定的字段名称，并非确定的值|
+
+案例：
+
+POJO对象部分字段
+
+```Java
+public class User {
+	private String password;
+	private String passwordOne;
+}
+```
+
+```Xml
+<group name="user.validate">
+	<field name="password">
+		<rule name="equals" message="两次输入的密码不相同">
+			<param name="target" value="passwordOne"/>
+		</rule>
+	</field>
+</group>
+```
+
+> 注：这里会将`password`与目标`passwordOne`字段的值进行`equals`比较
+> 有些时候你可能需要重写`equals`方法
+
+#### `timestampLessEqual` - 时间戳是否小于等于指定的目标时间字段
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|target|Yes|指定的时间字段名称，并非确定的值|
+
+案例：
+
+POJO对象部分字段
+
+```Java
+public class User {
+	private Timestamp starttime;
+	private Timestamp endtime;
+}
+```
+
+```Xml
+<group name="user.validate">
+	<field name="starttime">
+		<rule name="timestampLessEqual" message="开始时间不能大于结束时间">
+			<param name="target" value="endtime"/>
+		</rule>
+	</field>
+</group>
+```
+
+> 注：这里会将`starttime`与目标`endtime`字段的值进行大小比较
+> 特别注意：这里的字段必须是java.sql.Timestamp类型
+
+#### `timestampCreaterEqual` - 时间戳是否大于等于指定的目标时间字段
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|target|Yes|指定的时间字段名称，并非确定的值|
+
+案例：
+
+POJO对象部分字段
+
+```Java
+public class User {
+	private Timestamp starttime;
+	private Timestamp endtime;
+}
+```
+
+```Xml
+<group name="user.validate">
+	<field name="endtime">
+		<rule name="timestampCreaterEqual" message="结束时间不能小于开始时间">
+			<param name="target" value="starttime"/>
+		</rule>
+	</field>
+</group>
+```
+
+> 注：这里会将`endtime`与目标`starttime`字段的值进行大小比较
+> 特别注意：这里的字段必须是java.sql.Timestamp类型
