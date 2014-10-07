@@ -415,8 +415,9 @@ public class User {
 </group>
 ```
 
-> 注：这里会将`starttime`与目标`endtime`字段的值进行大小比较
-> 特别注意：这里的字段必须是java.sql.Timestamp类型
+> 注：
+> 1. 这里会将`starttime`与目标`endtime`字段的值进行大小比较
+> 2. 这里的字段必须是`java.sql.Timestamp`类型
 
 #### `timestampCreaterEqual` - 时间戳是否大于等于指定的目标时间字段
 
@@ -449,6 +450,6 @@ public class User {
 </group>
 ```
 
-> 注：这里会将`endtime`与目标`starttime`字段的值进行大小比较
-
-> 特别注意：这里的字段必须是java.sql.Timestamp类型
+> 注：
+> 1. 这里会将`endtime`与目标`starttime`字段的值进行大小比较
+> 2. 这里的字段必须是`java.sql.Timestamp`类型
