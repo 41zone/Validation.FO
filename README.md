@@ -13,9 +13,7 @@
 3. 扩展验证器很简单
 4. 以Map存储验证结果，非常简单的导出JSON，只要你愿意
 
-## 快速开始
-
-### 如何下载
+## 如何下载
 
 * Maven依赖 或 直接下载[Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)包
 
@@ -32,7 +30,7 @@
 * DEMO案例源代码，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
 
 
-## 最基本的用法
+## 快速开始
 
 #### 使用Validation.FO的步骤如下：
 
