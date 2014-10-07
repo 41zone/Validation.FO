@@ -13,9 +13,16 @@
 3. 扩展验证器很简单
 4. 以Map存储验证结果，非常简单的导出JSON，只要你愿意
 
+## 相关文档
+
+* API : [https://github.com/41zone/Validation.FO/wiki](https://github.com/41zone/Validation.FO/wiki)
+* 开源社区 : [GITHUB](https://github.com/41zone/Validation.FO)，[GITOSC](https://git.oschina.net/41zone/Validation.FO)
+* DEMO案例源代码，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
+
+
 ## 如何下载
 
-* Maven依赖 或 直接下载[Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)包
+* Maven依赖 或 直接下载[Validation.FO](https://github.com/41zone/Validation.FO/releases/)包
 
 ```Xml
 <dependency>
@@ -25,10 +32,7 @@
 </dependency>
 ```
 
-* 下载配置文件 [Validation.FO-Configuration-0.9.0.zip](https://github.com/41zone/Validation.FO/releases/tag/0.9.0-CONFIGURATION)
-
-* DEMO案例源代码，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
-
+* **(必须)** 下载配置文件 [Validation.FO-CONFIGURATION](https://github.com/41zone/Validation.FO/releases/)
 
 ## 快速开始
 
