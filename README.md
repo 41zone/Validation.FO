@@ -17,7 +17,7 @@
 
 ### 如何下载
 
-##### 1. Maven依赖 或 直接下载Jar包
+* Maven依赖 或 直接下载[Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)包
 
 ```Xml
 <dependency>
@@ -27,19 +27,10 @@
 </dependency>
 ```
 
-[Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)
+* 下载配置文件 [Validation.FO-Configuration-0.9.0.zip](https://github.com/41zone/Validation.FO/releases/tag/0.9.0-CONFIGURATION)
 
-##### 2. 下载配置文件
+* DEMO案例源代码，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
 
-[Validation.FO-Configuration-0.9.0.zip](https://github.com/41zone/Validation.FO/releases/tag/0.9.0-CONFIGURATION)
-
-##### 3. 开源仓库
-
-* GITHUB : [https://github.com/41zone/Validation.FO](https://github.com/41zone/Validation.FO)
-
-##### 4. DEMO案例源代码
-
-Demo可以在GITHUB中查看，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
 
 ## 最基本的用法
 
