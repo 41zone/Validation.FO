@@ -17,7 +17,7 @@
 
 ### 如何下载
 
-#### Maven依赖 或 直接下载Jar包
+##### 1. Maven依赖 或 直接下载Jar包
 
 ```Xml
 <dependency>
@@ -29,15 +29,15 @@
 
 [Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)
 
-#### 下载配置文件
+##### 2. 下载配置文件
 
 [Validation.FO-Configuration-0.9.0.zip](https://github.com/41zone/Validation.FO/releases/tag/0.9.0-CONFIGURATION)
 
-#### 开源仓库
+##### 3. 开源仓库
 
 * GITHUB : [https://github.com/41zone/Validation.FO](https://github.com/41zone/Validation.FO)
 
-#### DEMO案例源代码
+##### 4. DEMO案例源代码
 
 Demo可以在GITHUB中查看，[Validation.FO Demo](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo)
 
@@ -175,6 +175,76 @@ public class BasicTest {
 
 ```Java
 12:31:41,084  INFO BasicValidateConfig:44 - read validation main file , validationfo/basic/rules.fo.xml
+验证失败，结果如下
+{email=邮件格式不正确, password=两次密码输入不正确, starttime=开始时间不能大于结束时间, endtime=结束时间不能小于开始时间}
+```
+
+## 如何在Spring中使用
+
+1. 在Spring中需要使用 `SpringValidateConfg` 配置对象
+2. 需要额外配置 `SpringValidator` Bean对象
+3. [Spring DEMO 源代码下载](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/spring)
+
+#### 1. 配置Spring配置 `context.xml`
+
+```Xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- 基于 Spring 配置读取 -->
+	<bean id="springValidateConfig" class="cc.fozone.validation.config.SpringValidateConfig">
+		<property name="validators">
+			<value>validationfo/spring/validators.fo.xml</value>
+		</property>
+		<property name="rules">
+			<value>validationfo/spring/rules.fo.xml</value>
+		</property>
+	</bean>
+	
+	<!-- 配置验证服务 -->
+	<bean id="basicValidateService" class="cc.fozone.validation.BasicValidateService">
+		<constructor-arg index="0" ref="springValidateConfig"/>
+	</bean>
+	
+	<!-- 配置基于Spring的验证器 -->
+	<bean class="cc.fozone.validation.validators.SpringValidator"/>
+</beans>
+```
+
+#### 2. 如何通过Spring进行验证，`SpringTest.java`
+
+```Java
+public class SpringTest {
+	public static void main(String[] args) {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"validationfo/spring/context.xml");
+
+		// 获取验证服务
+		IValidateService service = context.getBean(IValidateService.class);
+		// 创建用户对象
+		User user = createUser();
+
+		// 执行验证
+		Map<String, String> map = service.validate(user, "user.validate");
+		// 输出结果
+		if (map == null || map.size() == 0) {
+			System.out.println("验证成功");
+		} else {
+			System.out.println("验证失败，结果如下");
+			System.out.println(map);
+		}
+	}
+}
+```
+
+#### 3. 执行结果
+
+```Java
+13:26:00,150  INFO ClassPathXmlApplicationContext:510 - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@283b4947: startup date [Tue Oct 07 13:26:00 CST 2014]; root of context hierarchy
+13:26:00,194  INFO XmlBeanDefinitionReader:315 - Loading XML bean definitions from class path resource [validationfo/spring/context.xml]
+13:26:00,373  INFO DefaultListableBeanFactory:598 - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@212b0f8a: defining beans [springValidateConfig,basicValidateService,cc.fozone.validation.validators.SpringValidator#0]; root of factory hierarchy
+13:26:00,442  INFO BasicValidateConfig:44 - read validation main file , validationfo/spring/rules.fo.xml
 验证失败，结果如下
 {email=邮件格式不正确, password=两次密码输入不正确, starttime=开始时间不能大于结束时间, endtime=结束时间不能小于开始时间}
 ```
