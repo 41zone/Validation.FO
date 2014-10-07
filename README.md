@@ -587,3 +587,191 @@ public class UserService {
 
 1. 要启用spring配置，需要参照上述的 **如何在Spring使用** 进行Spring与Validation.FO的整合配置
 2. 指定的对象方法必须返回 **boolean** 类型
+
+## 高级部分：如何自定义验证器 `IValidator`
+
+1. 实现 `IValidator` 接口
+2. 在 `validators.fo.xml` 验证器配置中添加已实现的验证器
+3. [点击这里查看Demo源代码](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/custom)
+
+### 一个简单的例子
+
+**POJO对象**
+
+```Java
+package validationfo.custom;
+
+public class Money {
+	private int number;
+	private String text;
+	
+	...
+	
+}
+```
+
+**CustomValidator实现**
+
+```Java
+package validationfo.custom;
+/**
+ * 构造一个判断 参数 是否能够被 指定的值 整出的验证器
+ * 例如：对象值为4 ，验证参数为2，那么 4可以被2整除，表示成功
+ * 
+ * @author Jimmy Song
+ *
+ */
+public class CustomValidator implements IValidator {
+	private static final Logger logger = Logger.getLogger(CustomValidator.class);
+	
+	/**
+	 * 要处理的对象
+	 * @param context 上下文
+	 * @param type 对象类型
+	 * @param value 对象值
+	 * @param rule 对象参数
+	 * @return 是否成功
+	 */
+	public boolean execute(Object context, Class type, Object value, Rule rule) {
+		// TODO Auto-generated method stub
+		/**
+		 * 这里只是演示一下context的用处
+		 * 可以通过context以及反射获取对象的属性值
+		 * 举个例子
+		 */
+		try {
+			System.out.println("TEXT = "+PropertyUtils.getProperty(context, "text"));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+		}
+		
+		/**
+		 * 通过 value 实际验证的值
+		 */
+		if(value == null) return true;
+		
+		/**
+		 * 通过 type 获取值的类型
+		 */
+		if(!(type == Integer.class || type == int.class)) {
+			return false;
+		}
+		int objectValue = ((Integer)value).intValue();
+		
+		
+		/**
+		 * 通过 rule 获取规则参数
+		 */
+		String toValue = rule.getParameter("value");
+		if(StringUtils.isBlank(toValue)) return false;
+		
+		int intValue = -1;
+		try {
+			intValue = Integer.parseInt(toValue);
+		} catch(NumberFormatException e){
+			logger.error("倍数值转换错误！");
+			return false;
+		}
+		
+		if(intValue <= 0) {
+			logger.warn("倍数值不能小于等于0");
+			return false;
+		}
+		
+		return objectValue % intValue == 0;
+	}
+
+}
+```
+
+**配置 validators.fo.xml 中添加自定义验证器**
+
+关于validators.fo.xml配置的参数说明
+
+**语法** ： `<validator name="" useSpring="true|false"  class=""  beanId=""/>`
+
+|参数名|必填|含义|
+|:--|:--|:--|
+|name|是|验证器名称|
+|useSpring|否|是否通过 **Spring** 实例化验证器，这样做可以为验证器注入 **ApplicationContext** |
+|class|否|当 **useSpring=false** 时，按照正常的方式进行实例化；当 **useSpring=true** 时，且使用了 **beanId** ，则 **class** 无效，如果没有使用 **beanId** ，那么 **Spring** 通过 **class** 进行实例化|
+|beanId|否|Spring中的bean id|
+
+
+```Xml
+<?xml version="1.0" encoding="UTF-8"?>
+<fozone-validators>
+	...
+	<validator name="custom" class="validationfo.custom.CustomValidator"/>
+</fozone-validators>
+```
+
+**配置验证规则**
+
+```Xml
+<?xml version="1.0" encoding="UTF-8"?>
+<fozone-validation>
+	<!-- 验证组ID，全局唯一 -->
+	<group name="money.validate">
+		<!-- 验证字段 -->
+		<field name="number">
+			<rule name="custom" message="验证失败，不能被指定的数整除">
+				<param name="value" value="3"/>
+			</rule>
+		</field>
+	</group>
+</fozone-validation>
+```
+
+**执行测试**
+
+```Java
+package validationfo.custom;
+
+public class CustomTest {
+	public static void main(String[] args) {
+		/**
+		 * Validation.FO的配置资源
+		 */
+		// 验证器配置，系统默认配置
+		String validatorsXML = "validationfo/custom/validators.fo.xml";
+		// 规则配置
+		String rulesXML = "validationfo/custom/rules.fo.xml";
+		
+		/**
+		 * 实例化配置对象
+		 */
+		IValidateConfig config =new BasicValidateConfig(validatorsXML, rulesXML);
+		/**
+		 * 实例化验证服务层
+		 */
+		IValidateService validateService = new BasicValidateService(config);
+		
+		// 实例化数据
+		Money money = new Money();
+		money.setNumber(7);
+		money.setText("演示Context使用的Text");
+		
+		/**
+		 * 执行验证
+		 */
+		Map<String,String> map = validateService.validate(money, "money.validate");
+		// 输出结果
+		if(map == null || map.size() == 0) {
+			System.out.println("验证成功");
+		} else {
+			System.out.println("验证失败，结果如下");
+			System.out.println(map);
+		}
+	}	
+}
+```
+
+**结果输出**
+
+```Java
+16:44:17,178  INFO BasicValidateConfig:44 - read validation main file , validationfo/custom/rules.fo.xml
+TEXT = 演示Context使用的Text
+验证失败，结果如下
+{number=验证失败，不能被指定的数整除}
+```
