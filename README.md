@@ -79,9 +79,23 @@ public class User {
 
 #### 2. 配置验证规则 `rules.fo.xml`
 
+* `<include file=""/> `
+	导入其他规则文件
+* `<group name=""></group>`
+	验证分组，name应该为全局唯一的
+* `<field name=""></field>`
+	验证的字段，name是被验证对象的属性字段名
+* `<rule name="" message=""></rule>`
+	验证规则，name是验证器名称，message是错误后返回的消息
+* `<param name="" value=""></param>`
+	是验证规则时可能需要传入的参数，name是参数名，value是参数值
+
 ```Xml
 <?xml version="1.0" encoding="UTF-8"?>
 <fozone-validation>
+	<!-- include 标签导入其他配置 -->
+	<include file="validationinfo/basic/another-rules.fo.xml"/>
+	 
 	<!-- 验证组ID，全局唯一 -->
 	<group name="user.validate">
 		<!-- 验证字段 -->
@@ -90,10 +104,10 @@ public class User {
 				规则列表
 			-->
 			<rule name="required" message="邮件必须填写"/>
-			<rule name="between" message="邮件长度应该3-100之间">
-				<param name="min" value="3"/>
-				<param name="max" value="100"/>
-			</rule>
+		<rule name="between" message="邮件长度应该3-100之间">
+			<param name="min" value="3"/>
+			<param name="max" value="100"/>
+		</rule>
 			<rule name="match" message="邮件格式不正确">
 				<param name="regex" value="^[A-Za-z]+[\.\-_A-Za-z0-9]*@[A-Za-z0-9]+[\.\-_A-Za-z0-9]*$"/>
 			</rule>
@@ -241,6 +255,21 @@ public class SpringTest {
 ## Validator验证器与规则
 
 系统默认的验证器文件 `validators.fo.xml`
+
+```Xml
+<?xml version="1.0" encoding="UTF-8"?>
+<fozone-validators>
+	<validator name="required" class="cc.fozone.validation.validators.RequiredValidator"/>
+	<validator name="match" class="cc.fozone.validation.validators.MatchValidator"/>
+	<validator name="between" class="cc.fozone.validation.validators.BetweenValidator"/>
+	<validator name="min" class="cc.fozone.validation.validators.MinValidator"/>
+	<validator name="max" class="cc.fozone.validation.validators.MaxValidator"/>
+	<validator name="equals" class="cc.fozone.validation.validators.EqualsValidator"/>
+	<validator name="timestampLessEqual" class="cc.fozone.validation.validators.TimestampLessEqualValidator"/>
+	<validator name="timestampCreaterEqual" class="cc.fozone.validation.validators.TimestampCreaterEqualValidator"/>
+	<validator name="spring"  useSpring="true" class="cc.fozone.validation.validators.SpringValidator"/>
+</fozone-validators>
+```
 
 ### 默认验证规则
 
