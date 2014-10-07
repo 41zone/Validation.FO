@@ -17,7 +17,7 @@
 
 ### 如何下载
 
-#### Maven依赖
+#### Maven依赖 或 直接下载Jar包
 
 ```Xml
 <dependency>
@@ -27,7 +27,6 @@
 </dependency>
 ```
 
-#### 或直接下载Jar包
 [Validation.FO-0.9.0.RELEASE.jar](https://github.com/41zone/Validation.FO/releases/tag/0.9.0.RELEASE)
 
 #### 下载配置文件
@@ -37,7 +36,6 @@
 #### 开源仓库
 
 * GITHUB : [https://github.com/41zone/Validation.FO](https://github.com/41zone/Validation.FO)
-* OS GIT : [https://git.oschina.net/41zone/Validation.FO](https://git.oschina.net/41zone/Validation.FO)
 
 #### DEMO案例源代码
 
@@ -51,9 +49,9 @@ Demo可以在GITHUB中查看，[Validation.FO Demo](https://github.com/jimmy-son
 2. 实例化 `IValidateService` 对象
 3. 调用 `IValidateService.validate` 方法
 
-### 第一个DEMO
+### 第一个DEMO，BasicValidateService
 
-源代码地址：[Basic Ustage](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/basic)
+源代码地址：[Basic Usage](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/basic)
 
 #### 1. 创建POJO对象 `User.java`
 
