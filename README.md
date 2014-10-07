@@ -469,3 +469,92 @@ public class User {
 
 1. 这里会将`endtime`与目标`starttime`字段的值进行大小比较
 2. 这里的字段必须是`java.sql.Timestamp`类型
+
+***
+
+#### `spring` - 通过Spring调用其他对象的指定方法进行判断
+
+DEMO： [点击查看](https://github.com/jimmy-song/fo-jimmysong-demo/tree/master/src/main/java/validationfo/springadvance)
+
+消息message: **必填**
+
+参数param： **有**
+
+|Name|Must|Description|
+|:--|:--:|:--|
+|beanName|Yes|Spring Context中的Bean标识|
+|methodName|Yes|Bean对象中的指定执行方法，该方法必须返回 **boolean** 类型|
+|parameterName|No|执行方法中传递的参数，**默认** 传递被验证字段的值，如果使用**this** 表示传递被验证的对象， **其他** 表示传递对象指定的字段|
+
+案例：
+
+**POJO对象部分字段**
+
+```Java
+public class User {
+	private String username;
+	private int usernameLength;
+}
+```
+
+**验证配置**
+
+```Xml
+<group name="user.validate">
+	<field name="username">
+		<rule name="spring" message="该用户已存在">
+			<param name="beanName" value="userService"/>
+			<param name="methodName" value="exist"/>
+		</rule>
+	</field>
+	
+	<field name="usernameLength">
+		<!-- 使用 this 关键字 -->
+		<rule name="spring" message="用户名长度验证错误">
+			<param name="beanName" value="userService"/>
+			<param name="methodName" value="length"/>
+			<param name="parameter" value="this"/>
+		</rule>
+		
+		<!-- 指定字段 -->
+		<rule name="spring" message="用户名长度不能小于5个字符">
+			<param name="beanName" value="userService"/>
+			<param name="methodName" value="lengthByName"/>
+			<param name="parameter" value="username"/>
+		</rule>
+	</field>
+</group>
+```
+
+**Spring中的配置**
+
+```Xml
+<beans>
+	<!-- 通过Spring进行验证 -->
+	<bean id="userService" class="validationfo.springadvance.UserService"/>
+</beans>
+```
+
+**通过Spring验证的接口**
+
+```Java
+package validationfo.springadvance;
+
+public class UserService {
+	public boolean exist(String value) {
+		return !"superman".equals(value);
+	}
+	
+	public boolean length(User user){
+		return user.getUsername().length() == user.getUsernameLength();
+	}
+	
+	public boolean lengthByName(String username){
+		return username.length() >= 5;
+	}
+}
+```
+**注：**
+
+1. 要启用spring配置，需要参照上述的 **如何在Spring使用** 进行Spring与Validation.FO的整合配置
+2. 指定的对象方法必须返回 **boolean** 类型
