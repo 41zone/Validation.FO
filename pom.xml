@@ -4,7 +4,7 @@
 
 	<groupId>cc.fozone.validation</groupId>
 	<artifactId>fo-validation</artifactId>
-	<version>0.9.1</version>
+	<version>0.9.1.RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>Validation.FO</name>

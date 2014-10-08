@@ -28,7 +28,7 @@
 <dependency>
 	<groupId>cc.fozone.validation</groupId>
 	<artifactId>fo-validation</artifactId>
-	<version>0.9.0.RELEASE</version>
+	<version>0.9.1.RELEASE</version>
 </dependency>
 ```
 
